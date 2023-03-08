@@ -29,27 +29,24 @@ void xuat(int a[], int n)
     }
 }
 
-int KiemTraNguyenTo(int n)
+int KiemTraHoanThien(int n)
 {
-    if(n < 2)
+    int tong = 0;
+    for(int i = 1; i < n; i++)
     {
-        return 0;
-    }
-    else if(n > 2)
-    {
-        if(n % 2 == 0)
+        if(n % i == 0)
         {
-            return 0;
-        }
-        for(int i = 3; i <= sqrt((float)n); i+= 2)
-        {
-            if(n % i == 0)
-            {
-                return 0;
-            }
+            tong += i;
         }
     }
-    return 1;
+    if(tong == n)
+    {
+        return 1;
+    }
+    else
+    {
+    return 0;
+    }
 }
 void HoanVi(int &a, int &b)
 {
@@ -57,15 +54,15 @@ void HoanVi(int &a, int &b)
     a = b;
     b = temp;
 }
-void SapXepNguyenToTangDan(int a[], int n)
+void SapXepHoanThienGiamDan(int a[], int n)
 {
     for(int i = 0; i < n - 1; i++)
     {
-        if(KiemTraNguyenTo(a[i]) == 1)
+        if(KiemTraHoanThien(a[i]) == 1)
         {
             for(int j = i + 1; j < n; j++)
             {
-                if(KiemTraNguyenTo(a[j]) == 1 && a[i] > a[j])
+                if(KiemTraHoanThien(a[j]) == 1 && a[i] < a[j])
                 {
                     HoanVi(a[i], a[j]);
                 }
@@ -82,8 +79,8 @@ int main()
     nhap(a, n);
     xuat(a, n);
 
-    SapXepNguyenToTangDan(a, n);
-    printf("\nMang sau khi sap xep nguyen to tang dan: ");
+    SapXepHoanThienGiamDan(a, n);
+    printf("\nMang sau khi sap xep hoan thien giam dan: ");
     xuat(a, n);
 
     getch();
