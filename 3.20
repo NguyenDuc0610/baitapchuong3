@@ -67,7 +67,29 @@ void HoanVi(int &a, int &b)
     a = a ^ b;
 }
 
-void XuatCacGiaTriChanTheoThuTuGiamDan(int a[][MAX], int dong, int cot)
+int KiemTraNguyenTo(int n)
+{
+    if(n < 2)
+    {
+        return 0;
+    }
+    else if(n > 2)
+    {
+        if(n % 2 == 0)
+        {
+            return 0;
+        }
+        for(int i = 3; i <= sqrt((float)n); i += 2)
+        {
+            if(n % i == 0)
+            {
+                return 0;
+            }
+        }
+    }
+    return 1;
+}
+void XuatCacSoNguyenToTheoThuTuTangDan(int a[][MAX], int dong, int cot)
 {
     int temp[MAX];
     int idx = 0;
@@ -75,7 +97,7 @@ void XuatCacGiaTriChanTheoThuTuGiamDan(int a[][MAX], int dong, int cot)
     {
         for(int j = 0; j < cot; j++)
         {
-            if(a[i][j] % 2 == 0)
+            if(KiemTraNguyenTo(a[i][j]) == 1)
             {
                 temp[idx++] = a[i][j];
             }
@@ -85,13 +107,13 @@ void XuatCacGiaTriChanTheoThuTuGiamDan(int a[][MAX], int dong, int cot)
     {
         for(int j =  i + 1; j < idx; j++)
         {
-            if(temp[i] < temp[j])
+            if(temp[i] > temp[j])
             {
                 HoanVi(temp[i], temp[j]);
             }
         }
     }
-    printf("\nXuat cac gia tri chan theo thu tu giam dan: \n");
+    printf("\nXuat cac so nguyen to theo thu tu tang dan: \n");
     for(int i = 0; i < idx; i++)
     {
         printf("%4d", temp[i]);
@@ -103,7 +125,7 @@ int main()
     NhapMang(a, dong, cot);
     XuatMang(a, dong, cot);
     
-    XuatCacGiaTriChanTheoThuTuGiamDan(a, dong, cot);
+    XuatCacSoNguyenToTheoThuTuTangDan(a, dong, cot);
     
     
 
